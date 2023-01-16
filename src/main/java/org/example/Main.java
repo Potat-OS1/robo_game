@@ -26,8 +26,10 @@ class Launch {
                     With a humble start, your first attempt was met with, well one might call them results.
                     Everything you could find until now was rusted to all get out. One day you find a flyer for a\s
                     competition. Maybe this will be your big break? lets find out.""");
-            Robot firstRobot = new Robot("Rusty", "I");
+            Robot firstRobot = new Robot("Rusty", "Type A");
+            Robot secondRobot = new Robot("Spider Mech", "Type B");
             robotList.add(firstRobot);
+            robotList.add(secondRobot);
             introSeen = true;
         }
     }

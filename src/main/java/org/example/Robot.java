@@ -12,11 +12,17 @@ public class Robot {
 
     Robot(String name, String type) {
         this.name = name;
-        this.type = type;
-        if (type.contains("bipedal") || type.contains("I")) {
+        if (type.contains("Type A")){
             this.maxSlots = 6;
             this.currentSlots = 0;
             parts = new Part[6];
+            this.type = "Type A";
+        }
+        if (type.contains("Type B")){
+            this.maxSlots = 9;
+            this.currentSlots = 0;
+            parts = new Part[9];
+            this.type = "Type B";
         }
     }
 
@@ -45,6 +51,10 @@ public class Robot {
 
             a++;
         }
+    }
+
+    public String getType() {
+        return type;
     }
 
     public int getNumParts() {
@@ -93,16 +103,14 @@ class Part{
         this.model = Information.setModel[Arrays.asList(Information.setNames).indexOf(this.set)][0][modelIndex];
         this.modCount = Integer.parseInt(Information.setModel[Arrays.asList(Information.setNames).indexOf(this.set)][1][modelIndex]);
         this.modList = new Mod[this.modCount];
-        int a = 0;
         // try to fill the part with mods given, but if not possible, fill with a blank mod.
-        for(Mod m : modList) {
+        for(int a = 0; a < modList.length; a++) {
             try {
-                m = addMod(mods[a]);
+                modList[a] = addMod(mods[a]);
             }
             catch(Exception e) {
-                m = addMod();
+                modList[a] = addMod();
             }
-            a++;
         }
         this.rank = rank;
     }

@@ -40,53 +40,92 @@ public class Garage extends Launch {
 
         // if that part is null, the user can only add a part.
         if (robotList.get(modify).targetPart(part) == null) {
-            //add future logic here so they can't add double of parts. or don't cause it could be funny.
-            // also add a thing to actually add from inventory.
-            if (Inventory.frameAParts.isEmpty()) {
-                System.out.println("You have no parts on hand");
-            } else {
-                for(int b = 0; b < Inventory.frameAParts.size(); b = b + 3) {
-                    for(int c = 0; c < 3; c++) {
-                        try{
-                            System.out.print("Inv Slot " + (b + c + 1) + ":  " + Inventory.frameAParts.get(b + c).getSet() + "   ");
-                        }
-                        catch(Exception e) {
-
-                        }
-                    }
-                    System.out.println();
-                }
-                System.out.println("Add which part?");
-                int num = Tools.select(Inventory.frameAParts.size());
-                robotList.get(modify).addPart(Inventory.frameAParts.get(num - 1), part);
-                Inventory.frameAParts.remove(num - 1);
+            if (robotList.get(modify).getType() == "Type A") {
+                addPartsA(part, modify);
+            }
+            if (robotList.get(modify).getType() == "Type B") {
+                addPartsB(part, modify);
             }
         }
         else {
-            robotList.get(modify).targetPart(part).getMods();
+            System.out.println(robotList.get(modify).targetPart(part).getMods());
             System.out.println("Remove this part? y/n: ");
             boolean addremove = Tools.yesNo();
             if (addremove) {
-                try {
-                    Inventory.frameAParts.add(robotList.get(modify).targetPart(part));
-                    robotList.get(modify).removePart(part);
-                } catch (Exception e) {
-                    System.out.println("Fuck");
+                switch(robotList.get(modify).getType()) {
+                    case ("Type A") -> {
+                        Inventory.frameAParts.add(robotList.get(modify).targetPart(part));
+                        removePartsA(part, modify);
+                    }
+                    case ("Type B") -> {
+                        Inventory.frameBParts.add(robotList.get(modify).targetPart(part));
+                        removePartsB(part, modify);
+                    }
                 }
-
                 //add code here to add to the inventory the part removed.
             }
         }
     }
 
+    public void addPartsA(int part, int modify) {
+        if (Inventory.frameAParts.isEmpty()) {
+            System.out.println("You have no parts on hand");
+        }
+        else {
+            for(int b = 0; b < Inventory.frameAParts.size(); b = b + 3) {
+                for(int c = 0; c < 3; c++) {
+                    try{
+                        System.out.print("Inv Slot " + (b + c + 1) + ":  " + Inventory.frameAParts.get(b + c).getSet() + "   ");
+                    }
+                    catch(Exception e) {
 
-    public void addParts(int part, int modify) {
-        robotList.get(modify).addPart(Inventory.frameAParts.get(0), part);
-        Inventory.frameAParts.remove(0);
+                    }
+                }
+                System.out.println();
+            }
+            System.out.println("Add which part?");
+            int num = Tools.select(Inventory.frameAParts.size());
+
+            if (robotList.get(modify).getType() == "Type A") {
+                robotList.get(modify).addPart(Inventory.frameAParts.get(num - 1), part);
+                Inventory.frameAParts.remove(num - 1);
+            }
+        }
     }
 
-    public void removeParts(int part, int modify) {
+    public void addPartsB(int part, int modify) {
+        if (Inventory.frameBParts.isEmpty()) {
+            System.out.println("You have no parts on hand");
+        }
+        else {
+            for(int b = 0; b < Inventory.frameBParts.size(); b = b + 3) {
+                for(int c = 0; c < 3; c++) {
+                    try{
+                        System.out.print("Inv Slot " + (b + c + 1) + ":  " + Inventory.frameBParts.get(b + c).getSet() + "   ");
+                    }
+                    catch(Exception e) {
+
+                    }
+                }
+                System.out.println();
+            }
+            System.out.println("Add which part?");
+            int num = Tools.select(Inventory.frameBParts.size());
+
+            if (robotList.get(modify).getType() == "Type B") {
+                robotList.get(modify).addPart(Inventory.frameBParts.get(num - 1), part);
+                Inventory.frameBParts.remove(num - 1);
+            }
+        }
+    }
+
+    public void removePartsA(int part, int modify) {
         Inventory.frameAParts.add(robotList.get(modify).targetPart(part));
+        robotList.get(modify).removePart(part);
+    }
+
+    public void removePartsB(int part, int modify) {
+        Inventory.frameBParts.add(robotList.get(modify).targetPart(part));
         robotList.get(modify).removePart(part);
     }
 
