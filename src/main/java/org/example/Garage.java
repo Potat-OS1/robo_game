@@ -54,11 +54,9 @@ public class Garage extends Launch {
             if (addremove) {
                 switch(robotList.get(modify).getType()) {
                     case ("Type A") -> {
-                        Inventory.frameAParts.add(robotList.get(modify).targetPart(part));
                         removePartsA(part, modify);
                     }
                     case ("Type B") -> {
-                        Inventory.frameBParts.add(robotList.get(modify).targetPart(part));
                         removePartsB(part, modify);
                     }
                 }
@@ -75,7 +73,7 @@ public class Garage extends Launch {
             for(int b = 0; b < Inventory.frameAParts.size(); b = b + 3) {
                 for(int c = 0; c < 3; c++) {
                     try{
-                        System.out.print("Inv Slot " + (b + c + 1) + ":  " + Inventory.frameAParts.get(b + c).getSet() + "   ");
+                        System.out.print("Inv Slot " + (b + c + 1) + ":  " + Inventory.frameAParts.get(b + c).getLimb() + " " + Inventory.frameAParts.get(b + c).getSet() + "   ");
                     }
                     catch(Exception e) {
 
@@ -85,11 +83,7 @@ public class Garage extends Launch {
             }
             System.out.println("Add which part?");
             int num = Tools.select(Inventory.frameAParts.size());
-
-            if (robotList.get(modify).getType() == "Type A") {
-                robotList.get(modify).addPart(Inventory.frameAParts.get(num - 1), part);
-                Inventory.frameAParts.remove(num - 1);
-            }
+            robotList.get(modify).addPart(Inventory.frameAParts.get(num - 1), part);
         }
     }
 
@@ -120,12 +114,10 @@ public class Garage extends Launch {
     }
 
     public void removePartsA(int part, int modify) {
-        Inventory.frameAParts.add(robotList.get(modify).targetPart(part));
         robotList.get(modify).removePart(part);
     }
 
     public void removePartsB(int part, int modify) {
-        Inventory.frameBParts.add(robotList.get(modify).targetPart(part));
         robotList.get(modify).removePart(part);
     }
 

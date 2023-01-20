@@ -12,12 +12,16 @@ class Inventory{
         inv.add(frameAParts);
         inv.add(frameBParts);
 
-        // add parts to inventory just for debut
-        frameAParts.add(new Part("Iron Defender", 1, 2, new String[]{"Strong"}));
-        frameAParts.add(new Part("Iron Defender", 2, 2, new String[]{"Strong"}));
-        frameAParts.add(new Part("Steel Protector", 1, 1, new String[]{"Light"}));
-        frameAParts.add(new Part("Value-Brand Economy", 1, 2));
+        // add parts to inventory just for debug
+        frameAParts.add(new Part("Iron Defender", 1, 2, new String[]{"Strong"}, Information.partType[0]));
+        frameAParts.add(new Part("Iron Defender", 2, 2, new String[]{"Strong"}, Information.partType[1]));
+        frameAParts.add(new Part("Steel Protector", 1, 1, new String[]{"Light"}, Information.partType[2]));
+        frameAParts.add(new Part("Value-Brand Economy", 1, 2, Information.partType[5]));
         //
+        frameBParts.add(new Part("Iron Defender", 1, 2, new String[]{"Strong"}, Information.partType[0]));
+        frameBParts.add(new Part("Iron Defender", 2, 2, new String[]{"Strong"}, Information.partType[1]));
+        frameBParts.add(new Part("Steel Protector", 1, 1, new String[]{"Light"}, Information.partType[2]));
+        frameBParts.add(new Part("Value-Brand Economy", 1, 2, Information.partType[5]));
         //
     }
 }

@@ -26,13 +26,21 @@ public class Robot {
         }
     }
 
-    public void addPart(String name, int modelIndex, int rank, String[] mods, int slot) {
+    public void addPart(String name, int modelIndex, int rank, String[] mods, int slot, String limb) {
         // add interaction with current slots later ig
-        parts[slot] = new Part(name, rank, modelIndex, mods);
+        parts[slot] = new Part(name, rank, modelIndex, mods, limb);
     }
 
     public void addPart(Part part, int slot) {
-        parts[slot] = part;
+        if (type.contains("Type A")) {
+            parts[slot] = part;
+            Inventory.frameAParts.remove(part);
+        }
+        if (type.contains("Type B")) {
+            parts[slot] = part;
+            Inventory.frameBParts.remove(part);
+        }
+
     }
 
     public String getInformation() {
@@ -40,16 +48,13 @@ public class Robot {
     }
 
     public void getPartsList() {
-        int a = 1;
         for (Part part : parts) {
             try {
-                System.out.println("Slot " + a + ":  " + part.getPart());
+                System.out.println("Slot - " + part.getLimb() + ":  " + part.getPart());
             }
             catch(Exception e) {
-                System.out.println("Slot " + a + ":  Nothing Installed.");
+                System.out.println("Slot:  Nothing Installed.");
             }
-
-            a++;
         }
     }
 
@@ -65,17 +70,8 @@ public class Robot {
         return parts[slot];
     }
 
-    public void addModPart(Part part, String name){
-        part.addMod(name);
-    }
-
-    public void removeModPart(Part part, int mod) {
-        part.removeMod(mod);
-    }
-
     public void removePart(int slot) {
-        Part p = parts[slot];
-        Inventory.frameAParts.add(p);
+        Inventory.frameAParts.add(targetPart(slot));
         parts[slot] = null;
     }
 }
@@ -86,23 +82,26 @@ class Part{
     private Mod[] modList;
     private int modCount;
     private int rank;
+    private String limb;
 
-    Part(String set, int modelIndex, int rank) {
+    Part(String set, int modelIndex, int rank, String limb) {
         this.set = set;
         this.model = Information.setModel[Arrays.asList(Information.setNames).indexOf(this.set)][0][modelIndex];
         this.modCount = Integer.parseInt(Information.setModel[Arrays.asList(Information.setNames).indexOf(this.set)][1][modelIndex]);
         this.modList = new Mod[this.modCount];
+        this.limb = limb;
         for(Mod m : modList) {
             m = addMod();
         }
         this.rank = rank;
     }
 
-    Part(String set, int modelIndex, int rank, String[] mods) {
+    Part(String set, int modelIndex, int rank, String[] mods, String limb) {
         this.set = set;
         this.model = Information.setModel[Arrays.asList(Information.setNames).indexOf(this.set)][0][modelIndex];
         this.modCount = Integer.parseInt(Information.setModel[Arrays.asList(Information.setNames).indexOf(this.set)][1][modelIndex]);
         this.modList = new Mod[this.modCount];
+        this.limb = limb;
         // try to fill the part with mods given, but if not possible, fill with a blank mod.
         for(int a = 0; a < modList.length; a++) {
             try {
@@ -113,6 +112,10 @@ class Part{
             }
         }
         this.rank = rank;
+    }
+
+    public String getLimb() {
+        return limb;
     }
 
     public String getPart() {
