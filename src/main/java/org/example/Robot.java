@@ -48,14 +48,21 @@ public class Robot {
     }
 
     public void getPartsList() {
+        int a = 0;
         for (Part part : parts) {
+            a++;
             try {
-                System.out.println("Slot - " + part.getLimb() + ":  " + part.getPart());
+                System.out.printf("%-15s %-55s","Slot " + a + ": " + part.getLimb() + ":",  part.getPart());
             }
             catch(Exception e) {
-                System.out.println("Slot:  Nothing Installed.");
+                System.out.printf("%-15s %-55s", "Slot " + a + ": ", "  Nothing Installed.");
+            }
+            if (a == 2) {
+                System.out.println();
+                a=0;
             }
         }
+        System.out.println();
     }
 
     public String getType() {

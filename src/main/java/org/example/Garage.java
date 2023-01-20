@@ -73,7 +73,7 @@ public class Garage extends Launch {
             for(int b = 0; b < Inventory.frameAParts.size(); b = b + 3) {
                 for(int c = 0; c < 3; c++) {
                     try{
-                        System.out.print("Inv Slot " + (b + c + 1) + ":  " + Inventory.frameAParts.get(b + c).getLimb() + " " + Inventory.frameAParts.get(b + c).getSet() + "   ");
+                        System.out.printf("%-15s %-40s", "Inv Slot " + (b + c + 1) + ":  ", Inventory.frameAParts.get(b + c).getLimb() + " " + Inventory.frameAParts.get(b + c).getSet() + "   ");
                     }
                     catch(Exception e) {
 

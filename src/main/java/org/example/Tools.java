@@ -1,6 +1,8 @@
 package org.example;
 
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Tools {
     static int select(int max) {
@@ -37,5 +39,27 @@ public class Tools {
             }
         }
         return input.equals("") || input.equals("y");
+    }
+
+    static void generateRandomPart(String type, int value) {
+        //                                       set(String)      model#(int)       rank       modlist              limb
+        //Inventory.frameAParts.add(new Part("Iron Defender", 1, 2, new String[]{"Strong"}, Information.partType[0]));
+
+
+        //System.out.println("Selected Set: " + randSet + "\nSelected Model Index: " + randModel + "\nSelected Rank: " + randRank);
+        if (type == "Type A") {
+            int randSet = generateRandom(0, 6);
+            int randModel = generateRandom(0, Information.setModel[randSet][0].length - 1);
+            int randRank = generateRandom(0, 3);
+            int randLimb = generateRandom(0, Information.partTypeA.length - 1);
+            Inventory.frameAParts.add(new Part(Information.setNames[randSet], randModel, randRank, null, Information.partTypeA[randLimb]));
+        }
+    }
+
+    static int generateRandom(int min, int max) {
+        //i took this code from stack overflow trying to find the old method that i did it that i couldn't quite
+        //remember, the max bound needs to be one more than the max bound you intend. this method of
+        //getting a random int has the upside of not creating a .random instance.
+        return ThreadLocalRandom.current().nextInt(min, max + 1);
     }
 }
