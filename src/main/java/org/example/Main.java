@@ -48,10 +48,11 @@ class Launch {
                     6: test""");
             int choice = Tools.select(6);
             Garage g = new Garage();
+            Junkyard j = new Junkyard();
             switch (choice) {
                 case (1) -> g.scene();
                 case (2) -> mechanics();
-                case (3) -> junkyard();
+                case (3) -> j.scene();
                 case (4) -> arena();
                 case (5) -> town();
                 case (6) -> System.out.println();

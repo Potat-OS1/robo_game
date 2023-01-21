@@ -47,19 +47,18 @@ public class Robot {
         return name + " - Type: " + type + "\n";
     }
 
+    public String getName() {
+        return name;
+    }
     public void getPartsList() {
-        int a = 0;
+        int b = 0;
         for (Part part : parts) {
-            a++;
+            b++;
             try {
-                System.out.printf("%-15s %-55s","Slot " + a + ": " + part.getLimb() + ":",  part.getPart());
+                System.out.println("Slot " + b + ":  " + part.getLimb() + part.getPart());
             }
             catch(Exception e) {
-                System.out.printf("%-15s %-55s", "Slot " + a + ": ", "  Nothing Installed.");
-            }
-            if (a == 2) {
-                System.out.println();
-                a=0;
+                System.out.println("Slot " + b + ":  Nothing Installed.");
             }
         }
         System.out.println();
@@ -126,7 +125,7 @@ class Part{
     }
 
     public String getPart() {
-        return "Rank " + getRank() + " " + getSet() + " " + getModel() + " w/" + getSlotCount() + " slots.";
+        return " Rank " + getRank() + " " + getSet() + " " + getModel() + " w/" + getSlotCount() + " slots.";
     }
 
     public String getModel() {

@@ -25,7 +25,8 @@ public class Garage extends Launch {
         int a = 1;
         //print out the robot list.
         for (Robot mech : robotList) {
-            System.out.print(a + ": " + mech.getInformation());
+            System.out.printf("%-16s %-40s", a + ": " + mech.getName(), "- " + mech.getType());
+            System.out.println();
             a++;
         }
         // collect user input on which robot to modify. the Integer modify will henceforth reference the selected robot. Minus one cause we started @ 1 instead of 0.

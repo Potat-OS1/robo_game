@@ -44,15 +44,17 @@ public class Tools {
     static void generateRandomPart(String type, int value) {
         //                                       set(String)      model#(int)       rank       modlist              limb
         //Inventory.frameAParts.add(new Part("Iron Defender", 1, 2, new String[]{"Strong"}, Information.partType[0]));
-
-
         //System.out.println("Selected Set: " + randSet + "\nSelected Model Index: " + randModel + "\nSelected Rank: " + randRank);
+        int randSet = generateRandom(0, 6);
+        int randModel = generateRandom(0, Information.setModel[randSet][0].length - 1);
+        int randRank = generateRandom(1, 3);
         if (type == "Type A") {
-            int randSet = generateRandom(0, 6);
-            int randModel = generateRandom(0, Information.setModel[randSet][0].length - 1);
-            int randRank = generateRandom(0, 3);
             int randLimb = generateRandom(0, Information.partTypeA.length - 1);
             Inventory.frameAParts.add(new Part(Information.setNames[randSet], randModel, randRank, null, Information.partTypeA[randLimb]));
+        }
+        if (type == "Type B") {
+            int randLimb = generateRandom(0, Information.partTypeB.length - 1);
+            Inventory.frameBParts.add(new Part(Information.setNames[randSet], randModel, randRank, null, Information.partTypeB[randLimb]));
         }
     }
 
