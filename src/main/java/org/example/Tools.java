@@ -1,6 +1,5 @@
 package org.example;
 
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -17,7 +16,6 @@ public class Tools {
                 else {
                     System.out.println("Invalid Menu Item: Out of Bounds.");
                 }
-
             }
             catch(Exception e) {
                 System.out.println("Invalid Menu Item: " + e.getCause());
@@ -40,21 +38,28 @@ public class Tools {
         }
         return input.equals("") || input.equals("y");
     }
+    static void generateRandomPart(String type) {
+        int randRank = generateRandom(1, 3);
+        generate(type, randRank);
 
+    }
     static void generateRandomPart(String type, int value) {
-        //                                       set(String)      model#(int)       rank       modlist              limb
-        //Inventory.frameAParts.add(new Part("Iron Defender", 1, 2, new String[]{"Strong"}, Information.partType[0]));
+        //                                       set(String)      model#(int)       rank       modlist                      limb
+        //    Inventory.frameAParts.add(new Part("Iron Defender", 1,                2,         new String[]{"Strong"},      Information.partType[0]));
         //System.out.println("Selected Set: " + randSet + "\nSelected Model Index: " + randModel + "\nSelected Rank: " + randRank);
+        generate(type, value);
+    }
+
+    static void generate(String type, int value) {
         int randSet = generateRandom(0, 6);
         int randModel = generateRandom(0, Information.setModel[randSet][0].length - 1);
-        int randRank = generateRandom(1, 3);
         if (type == "Type A") {
             int randLimb = generateRandom(0, Information.partTypeA.length - 1);
-            Inventory.frameAParts.add(new Part(Information.setNames[randSet], randModel, randRank, null, Information.partTypeA[randLimb]));
+            Inventory.frameAParts.add(new Part(Information.setNames[randSet], randModel, value, null, Information.partTypeA[randLimb]));
         }
         if (type == "Type B") {
             int randLimb = generateRandom(0, Information.partTypeB.length - 1);
-            Inventory.frameBParts.add(new Part(Information.setNames[randSet], randModel, randRank, null, Information.partTypeB[randLimb]));
+            Inventory.frameBParts.add(new Part(Information.setNames[randSet], randModel, value, null, Information.partTypeB[randLimb]));
         }
     }
 

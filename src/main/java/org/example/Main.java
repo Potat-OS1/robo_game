@@ -64,11 +64,6 @@ class Launch {
         hub();
     }
 
-    void junkyard() {
-        System.out.println("Nothing here for now. oop");
-        hub();
-    }
-
     void town() {
         System.out.println("Nothing here for now. toop");
         hub();

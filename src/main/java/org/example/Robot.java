@@ -2,33 +2,26 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Robot {
     private Part[] parts;
     private String type;
-    private String name;
+    private final String name;
     private int maxSlots;
-    private int currentSlots;
 
     Robot(String name, String type) {
         this.name = name;
         if (type.contains("Type A")){
             this.maxSlots = 6;
-            this.currentSlots = 0;
             parts = new Part[6];
             this.type = "Type A";
         }
         if (type.contains("Type B")){
             this.maxSlots = 9;
-            this.currentSlots = 0;
             parts = new Part[9];
             this.type = "Type B";
         }
-    }
-
-    public void addPart(String name, int modelIndex, int rank, String[] mods, int slot, String limb) {
-        // add interaction with current slots later ig
-        parts[slot] = new Part(name, rank, modelIndex, mods, limb);
     }
 
     public void addPart(Part part, int slot) {
@@ -41,10 +34,6 @@ public class Robot {
             Inventory.frameBParts.remove(part);
         }
 
-    }
-
-    public String getInformation() {
-        return name + " - Type: " + type + "\n";
     }
 
     public String getName() {
@@ -83,21 +72,23 @@ public class Robot {
 }
 
 class Part{
-    private String set;
-    private String model;
-    private Mod[] modList;
-    private int modCount;
-    private int rank;
-    private String limb;
+    private final String set;
+    private final String model;
+    private final Mod[] modList;
+    private final int modCount;
+    private final int rank;
+    private final String limb;
 
+    //plan to use this later.
     Part(String set, int modelIndex, int rank, String limb) {
         this.set = set;
         this.model = Information.setModel[Arrays.asList(Information.setNames).indexOf(this.set)][0][modelIndex];
         this.modCount = Integer.parseInt(Information.setModel[Arrays.asList(Information.setNames).indexOf(this.set)][1][modelIndex]);
         this.modList = new Mod[this.modCount];
         this.limb = limb;
-        for(Mod m : modList) {
-            m = addMod();
+        //didnt know i could make the field name ignored to not worry about a name specifically
+        for(Mod ignored : modList) {
+            addMod();
         }
         this.rank = rank;
     }
@@ -153,16 +144,17 @@ class Part{
     }
 
     public String getMods() {
-        String temp = "";
+        //string builder is something intellij suggested.
+        StringBuilder temp = new StringBuilder();
         for(Mod m : this.modList) {
             try {
-                temp = temp + m.getModName() + "\n";
+                temp.append(m.getModName()).append("\n");
             }
             catch(Exception e) {
-
+                //dont need to error handle
             }
         }
-        return temp;
+        return temp.toString();
     }
 
     public void removeMod(int slot) {
@@ -185,7 +177,7 @@ class Part{
             modNames.add(m.getModName());
             modPerks.add(m.getPerk());
         }
-        return "Aggregated HP: " + hp + " Aggregated Power: " + power + " Aggregated Weight" + weight + "List of Mods: " + modNames + " And their associated perks: " + modPerks;
+        return "Aggregated HP: " + hp + " Aggregated Power: " + power + " Aggregated Weight" + weight + "\nList of Mods: " + modNames + "\nAnd their associated perks: " + modPerks;
     }
 }
 
@@ -207,7 +199,7 @@ class Mod{
 
     Mod(String mod) {
         for(int a = 0; a < Information.Mods.length; a++) {
-            if (Information.Mods[a][0] == mod) {
+            if (Objects.equals(Information.Mods[a][0], mod)) {
                 this.modName = Information.Mods[a][0];
                 this.modWeight = Integer.parseInt(Information.Mods[a][1]);
                 this.modPower = Integer.parseInt(Information.Mods[a][2]);

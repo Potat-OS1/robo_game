@@ -14,18 +14,10 @@ class Inventory{
 
         // add parts to inventory just for debug
         for (int a = 0; a < 6; a++) {
-            Tools.generateRandomPart("Type A", 2);
+            //Tools.generateRandomPart("Type A", 2);
+            Tools.generateRandomPart("Type A");
         }
-//
 //        frameAParts.add(new Part("Iron Defender", 2, 2, new String[]{"Strong"}, Information.partType[1]));
-//        frameAParts.add(new Part("Steel Protector", 1, 1, new String[]{"Light"}, Information.partType[2]));
-//        frameAParts.add(new Part("Value-Brand Economy", 1, 2, Information.partType[5]));
-        //
-        frameBParts.add(new Part("Iron Defender", 1, 2, new String[]{"Strong"}, Information.partTypeB[0]));
-        frameBParts.add(new Part("Iron Defender", 2, 2, new String[]{"Strong"}, Information.partTypeB[1]));
-        frameBParts.add(new Part("Steel Protector", 1, 1, new String[]{"Light"}, Information.partTypeB[2]));
-        frameBParts.add(new Part("Value-Brand Economy", 1, 2, Information.partTypeB[3]));
-        //
     }
 }
 
@@ -46,12 +38,12 @@ class Information{
     public static String[] partTypeA = {"Right Arm","Left Arm","Right Leg", "Left Leg","Back Plate","Chest Plate","Head Peice"}; //7
     public static String[] partTypeB = {"Leg", "Head Peice", "Upper Shell", "Lower Shell"}; //4
 
-    // name - weight - power - hp - perk
+    //                               name - weight - power - hp - perk
     public static String[][] Mods = {{"Strong","5","5","5","+2 power"},{"Light","1","2","2","+1 speed"}};
 }
 
 // N# = a number of mods determined by the model of part.
-// D# = a number of parts determined by the frame.2
+// D# = a number of parts determined by the frame.
 //
 // set -- frame type A -- Model[N] -- Right Arm -- N# Mods
 //     |                           |- Left Arm -- N# Mods
