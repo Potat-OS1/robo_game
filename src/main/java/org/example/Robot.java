@@ -39,6 +39,7 @@ public class Robot {
     public String getName() {
         return name;
     }
+
     public void getPartsList() {
         int b = 0;
         for (Part part : parts) {
@@ -50,7 +51,8 @@ public class Robot {
                 System.out.println("Slot " + b + ":  Nothing Installed.");
             }
         }
-        System.out.println();
+        b++;
+        System.out.println("     " + b + ":  Exit");
     }
 
     public String getType() {
@@ -66,7 +68,10 @@ public class Robot {
     }
 
     public void removePart(int slot) {
-        Inventory.frameAParts.add(targetPart(slot));
+        switch(type) {
+            case("Type A") -> Inventory.frameAParts.add(targetPart(slot));
+            case("Type B") -> Inventory.frameBParts.add(targetPart(slot));
+        }
         parts[slot] = null;
     }
 }
@@ -143,12 +148,18 @@ class Part{
         return new Mod(mod);
     }
 
+    public void addMod(int modSlot, Mod m) {
+        modList[modSlot] = m;
+    }
+
     public String getMods() {
         //string builder is something intellij suggested.
         StringBuilder temp = new StringBuilder();
+        int b = 0;
         for(Mod m : this.modList) {
             try {
-                temp.append(m.getModName()).append("\n");
+                b++;
+                temp.append("Mod " + b + ": ").append(m.getModName()).append("\n");
             }
             catch(Exception e) {
                 //dont need to error handle
@@ -161,6 +172,10 @@ class Part{
         Mod m = modList[slot];
         Inventory.modsObtained.add(m);
         modList[slot] = addMod();
+    }
+
+    public int getModCount() {
+        return modList.length;
     }
 
     // grab all mods stats
@@ -195,6 +210,14 @@ class Mod{
         this.modWeight = 0;
         this.modPower = 0;
         this.perk = "None";
+    }
+
+    Mod(Mod mod) {
+        this.modName = mod.getModName();
+        this.modHp = mod.getModHp();
+        this.modPower = mod.getModPower();
+        this.modWeight = mod.getModWeight();
+        this.perk = mod.getPerk();
     }
 
     Mod(String mod) {

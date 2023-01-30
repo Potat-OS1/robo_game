@@ -17,6 +17,8 @@ class Inventory{
             //Tools.generateRandomPart("Type A", 2);
             Tools.generateRandomPart("Type A");
         }
+        modsObtained.add(new Mod("Strong"));
+        modsObtained.add(new Mod("Light"));
 //        frameAParts.add(new Part("Iron Defender", 2, 2, new String[]{"Strong"}, Information.partType[1]));
     }
 }
@@ -35,11 +37,11 @@ class Information{
             {{"2CFeNMnP", "4C3FeNMnP"},              {"4", "5"}},
             {{"AL-333", "AL-666", "AL-999"},         {"4", "4", "4"}}};
 
-    public static String[] partTypeA = {"Right Arm","Left Arm","Right Leg", "Left Leg","Back Plate","Chest Plate","Head Peice"}; //7
+    public static String[] partTypeA = {"Right Arm", "Left Arm", "Right Leg", "Left Leg", "Back Plate", "Chest Plate", "Head Peice"}; //7
     public static String[] partTypeB = {"Leg", "Head Peice", "Upper Shell", "Lower Shell"}; //4
 
     //                               name - weight - power - hp - perk
-    public static String[][] Mods = {{"Strong","5","5","5","+2 power"},{"Light","1","2","2","+1 speed"}};
+    public static String[][] Mods = {{"Strong","5","5","5","No perk"},{"Light","1","2","2","No perk"}};
 }
 
 // N# = a number of mods determined by the model of part.
